@@ -1,18 +1,20 @@
-version: '3.8'
+version: "3.8"
 
 services:
   gesture:
     build:
       context: ./docker/gesture
-    restart: unless-stopped
+    environment:
+      CI: "false"
+      PNPM_CONFIG_FROZEN_LOCKFILE: "false"
+      SOS_RESPOUNDER_ID: 2
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "5001:5001"
-    environment:
-      - SOS_RESPOUNDER_ID=2
-      - MYSQL_HOST=mysql
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    restart: unless-stopped
     depends_on:
       - mysql
 
