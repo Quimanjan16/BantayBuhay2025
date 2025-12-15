@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   gesture:
-    build: ./docker/gesture
+    build:
+      context: ./docker/gesture
     restart: unless-stopped
     ports:
       - "5001:5001"
